@@ -1,9 +1,8 @@
-# encoding: utf-8
 require "social_profile/version"
 
 module SocialProfile
   class Person
-    attr_reader :uid, :access_token
+    attr_reader :uid, :access_token, :options
       
     def initialize(uid, access_token, options = {})
       @uid = uid
@@ -17,6 +16,8 @@ module SocialProfile
       klass = case provider.to_s
         when "facebook" then People::Facebook
         when "vkontakte" then People::Vkontakte
+        when "twitter" then People::Twitter
+        when "instagram" then People::Instagram
         else Person
       end
     
@@ -65,6 +66,16 @@ module SocialProfile
       return if tags.empty? || object.nil?
 
       object.tag!(:tags => tags)
+    end
+
+    # Get friends count
+    def friends_count(options = {})
+      nil
+    end
+
+    # Get followers count
+    def followers_count(options = {})
+      nil
     end
   end
 end
